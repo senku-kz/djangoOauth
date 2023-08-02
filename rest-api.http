@@ -1,0 +1,41 @@
+### get client-id and client-secret
+GET http://127.0.0.1:8000/o/applications/1/
+Cache-Control: no-cache
+Content-Type: application/json
+
+### get the Authorization code
+GET http://127.0.0.1:8000/o/authorize/
+    ?response_type=code
+    &code_challenge=XRi41b-5yHtTojvCpXFpsLUnmGFz6xR15c3vpPANAvM
+    &code_challenge_method=S256
+    &client_id={{ID}}
+    &redirect_uri={{REDIRECT_URI}}
+
+### get an access token
+
+# curl -X POST
+#    -H "Cache-Control: no-cache"
+#    -H "Content-Type: application/x-www-form-urlencoded"
+#    "http://127.0.0.1:8000/o/token/"
+#    -d "client_id=${ID}"
+#    -d "client_secret=${SECRET}"
+#    -d "code=${CODE}"
+#    -d "code_verifier=${CODE_VERIFIER}"
+#    -d "redirect_uri=http://127.0.0.1:8000/noexist/callback"
+#    -d "grant_type=authorization_code"
+POST http://127.0.0.1:8000/o/token/
+Cache-Control: no-cache
+Content-Type: application/x-www-form-urlencoded
+
+client_id={{ID}}&client_secret={{SECRET}}&code={{CODE}}&code_verifier={{CODE_VERIFIER}}&redirect_uri={{REDIRECT_URI}}&grant_type=authorization_code
+
+### To access the user resources use the access_token
+# curl
+#    -H "Authorization: Bearer jooqrnOrNa0BrNWlg68u9sl6SkdFZg"
+#    -X GET http://localhost:8000/resource
+GET http://localhost:8000/resource
+Authorization: Bearer v8kQaRUZhwn7fQ34Aq5O5vSmoKJxv8
+
+###
+
+
